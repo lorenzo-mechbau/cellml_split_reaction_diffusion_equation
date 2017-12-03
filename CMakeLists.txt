@@ -1,4 +1,4 @@
-set(ExampleName "static_advection_diffusion_equation")
+set(ExampleName "cellml_split_reaction_diffusion_equation")
 
 cmake_minimum_required(VERSION 3.4 FATAL_ERROR)
 
