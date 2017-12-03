@@ -2,7 +2,7 @@
 CellML Split Reaction Diffusion Equation
 ========================================
 
-This example solves the weak form of the following static advection-diffusion equation, 
+This example solves the weak form of the following cellml_split_reaction_diffusion_equation, 
 
 
 
