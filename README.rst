@@ -20,19 +20,19 @@ where |u| is a scalar dependent variable (e.g. temperature, concentration of a c
    :align: middle
 
 .. |u| image:: ./docs/images/u.svg
-   :align: middle
+   :align: bottom
 
 .. |conductivity_tensor| image:: ./docs/images/conductivity_tensor.svg
-   :align: middle
+   :align: bottom
 
 .. |R| image:: ./docs/images/r.svg
-   :align: middle
+   :align: bottom
 
 .. |x| image:: ./docs/images/x.svg
-   :align: middle
+   :align: bottom
    
 .. |t| image:: ./docs/images/t.svg
-   :align: middle   
+   :align: bottom   
    
    
    
