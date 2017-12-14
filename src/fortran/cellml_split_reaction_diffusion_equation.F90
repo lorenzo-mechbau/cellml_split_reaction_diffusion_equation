@@ -271,34 +271,37 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   !Create the CellML environment
   CALL cmfe_CellML_Initialise(CellML,Err)
   CALL cmfe_CellML_CreateStart(CellMLUserNumber,Region,CellML,Err)
-  !Import a toy constant source model from a file
+  !Import a constant source model from a file
   CALL cmfe_CellML_ModelImport(CellML,"zero-rate.xml",constantModelIndex,Err)
+  !Speify the variables in the imported model that will be used. 
+  
 
   ! Now we have imported all the models we are able to specify which variables from the model we want:
   ! - to set from this side
-  !These are effectively parameters that you know won't change in the course of the ode solving for one time step. i.e. fixed before running cellml, known in opencmiss and 
-  !changed only in opencmiss - components of the parameters field
+  !These are effectively parameters that you know won't change in the course of the ode solving for one time step. 
+  !i.e. fixed before running cellml, known in opencmiss and changed only in opencmiss - components of the parameters field
   CALL cmfe_CellML_VariableSetAsKnown(CellML,constantModelIndex,"dude/param",Err)
-
-  ! - to get from the CellML side. variables in cellml model that are not state variables, but are dependent on independent and state variables. - components of intermediate field
+  ! - to get from the CellML side. variables in cellml model that are not state variables, but are dependent on 
+  !independent and state variables. - components of intermediate field
   CALL cmfe_CellML_VariableSetAsWanted(CellML,constantModelIndex,"dude/intmd",Err)
-
   !Finish the CellML environment
   CALL cmfe_CellML_CreateFinish(CellML,Err)
 
   !Start the creation of CellML <--> OpenCMISS field maps
   CALL cmfe_CellML_FieldMapsCreateStart(CellML,Err)
-  !Now we can set up the field variable component <--> CellML model variable mappings.
-  !here we map opencmiss fields to appropriate cellml field - either parameters/intermediates/state.
-  !in monodomain, people typically want Vm, a state variable. In my case, Calcium is my state variable.
-  !In my case, I will want to get an injection of calcium. Now, I have order splitting, which means that 
-  !I don't actually use the source field (the problem is solved as an ode, and then as a pde separately.
-  !I need to get calcium from my dependent field and solve the DAE to give new values of calcium in the dependent field again.
-  ! this is then used as the initial set up for the dynamic solver. so map dependent field to appropriate component variable names.
-  !cellml/opencmiss will look up the appropriate field.
+  !Set up the field variable component <--> CellML model variable mappings.
+  !Here opencmiss fields are mapped to appropriate cellml fields (parameters/intermediates/state).
+  !in monodomain problems, typically one wants Vm, a state variable. In the present case, Ca concentration is the 
+  !state variable. Furthermore, an injection of Ca is also required. Since in this example 'order-splitting' is used, 
+  !the source field is not required. Instead, the problem is solved as an ODE and then as a PDE separately.
+  !Ca concentration is obtained from the dependent field and solve the DAE to give new values of the Ca concentration
+  !in the dependent field again. This is then used as the initial set up for the dynamic solver. Thus, the dependent field 
+  !is mapped to appropriate component variable names.cellml/opencmiss will look up the appropriate field.
 
-  !If I didn't have order splitting, i.e. a proper reaction diffusion equation to solve, then I need to get the current ca conc. from the
-  !dependent field, solve the dae, and then put the result of the dae into the source field. 
+  !On the other hand, if there is no order-splitting, i.e. a proper reaction-diffusion equation to solve, then the current Ca
+  !concentration from the dependent field is used to solve the DAE and the result of the DAE is substituted back to 
+  !the source field.
+ 
   CALL cmfe_CellML_CreateFieldToCellMLMap(CellML,DependentField,CMFE_FIELD_U_VARIABLE_TYPE,1,CMFE_FIELD_VALUES_SET_TYPE, &
     & constantModelIndex,"dude/ca",CMFE_FIELD_VALUES_SET_TYPE,Err)
   CALL cmfe_CellML_CreateCellMLToFieldMap(CellML,constantModelIndex,"dude/ca",CMFE_FIELD_VALUES_SET_TYPE, &
@@ -306,7 +309,7 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   !Finish the creation of CellML <--> OpenCMISS field maps
   CALL cmfe_CellML_FieldMapsCreateFinish(CellML,Err)
 
-  !set initial value of the dependent field/state variable, ca.
+  !set initial value of the dependent field/state variable, Ca concentration.
   CALL cmfe_Field_ComponentValuesInitialise(DependentField,CMFE_FIELD_U_VARIABLE_TYPE, &
     & CMFE_FIELD_VALUES_SET_TYPE,1,0.0_CMISSRP,Err)
   node=2
@@ -316,14 +319,16 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
      & CMFE_FIELD_VALUES_SET_TYPE, &
      & 1,1,node,1,0.0_CMISSRP,Err) 
   ENDIF
-  !Start the creation of the CellML models field. This field is an integer field that stores which nodes have which cellml model
+  !Start the creation of the CellML models field. This field is an integer field that stores which nodes have which cellml 
+  !model
   CALL cmfe_Field_Initialise(CellMLModelsField,Err)
   CALL cmfe_CellML_ModelsFieldCreateStart(CellML, CellMLModelsFieldUserNumber, &
     & CellMLModelsField,Err)
   !Finish the creation of the CellML models field
   CALL cmfe_CellML_ModelsFieldCreateFinish(CellML,Err)
   !The CellMLModelsField is an integer field that stores which model is being used by which node.
-  !By default all field parameters have default model value of 1, i.e. the first model. But, this command below is for example purposes
+  !By default all field parameters have default model value of 1, i.e. the first model. But, this command below is 
+  !for example purposes
   CALL cmfe_Field_ComponentValuesInitialise(CellMLModelsField,CMFE_FIELD_U_VARIABLE_TYPE, &
     & CMFE_FIELD_VALUES_SET_TYPE,1,1_CMISSIntg,Err)
 
