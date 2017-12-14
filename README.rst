@@ -5,6 +5,22 @@ CellML Split Reaction Diffusion Equation
 This example solves the weak form of the one-dimensional reaction diffusion equation using the Galerkin finite element method. The three-dimensional classical form of the equation is given by,  
 
 
+|3d_reaction_diffusion_equation|
+
+
+
+
+
+
+
+
+
+
+.. |3d_reaction_diffusion_equation| image:: ./docs/images/3d_reaction_diffusion_equation.svg
+   :align: middle
+
+
+
 
 
 
