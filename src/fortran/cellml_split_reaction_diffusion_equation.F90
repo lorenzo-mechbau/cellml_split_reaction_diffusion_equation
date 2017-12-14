@@ -223,7 +223,7 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   ! DEPENDENT FIELD
   !-----------------------------------------------------------------------------------------------------------
 
-  !Create the equations set dependent field variables
+  !Create the equations set dependent field variables (primary and secondary variable)
   CALL cmfe_Field_Initialise(DependentField,Err)
   CALL cmfe_EquationsSet_DependentCreateStart(EquationsSet,DependentFieldUserNumber,DependentField,Err)
   CALL cmfe_Field_VariableLabelSet(DependentField,CMFE_FIELD_U_VARIABLE_TYPE,"U",Err)
@@ -236,14 +236,15 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   !-----------------------------------------------------------------------------------------------------------
 
   !Create the equations set material field variables
-  !by default 2 comps for reac diff i.e. diff coeff in 1 direction set constant spatially = 1, and storage coeff set to 1
+  !by default 2 components for reaction-diffusion i.e. diffusion coefficient in x direction 
+  !set constant spatially = 1, and storage coefficient set to 1
   CALL cmfe_Field_Initialise(MaterialsField,Err)
   CALL cmfe_EquationsSet_MaterialsCreateStart(EquationsSet,MaterialsFieldUserNumber,MaterialsField,Err)
   CALL cmfe_Field_VariableLabelSet(MaterialsField,CMFE_FIELD_U_VARIABLE_TYPE,"Material",Err)
   !Finish the equations set materials field variables
   CALL cmfe_EquationsSet_MaterialsCreateFinish(EquationsSet,Err)
   CALL cmfe_Field_ComponentValuesInitialise(MaterialsField,CMFE_FIELD_U_VARIABLE_TYPE,CMFE_FIELD_VALUES_SET_TYPE, &
-   & 1,0.5_CMISSRP,Err) !diff coeff in x
+   & 1,0.5_CMISSRP,Err) !diffusion coefficent in x
   CALL cmfe_Field_ComponentValuesInitialise(MaterialsField,CMFE_FIELD_U_VARIABLE_TYPE,CMFE_FIELD_VALUES_SET_TYPE, &
    & 2,1.0_CMISSRP,Err) ! storage coefficient
   
@@ -251,7 +252,8 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   ! SOURCE FIELD
   !-----------------------------------------------------------------------------------------------------------
 
-  !Set up source field for reaction diffusion equation set. Note that for the split problem subtype, the source field is not used at all.
+  !Set up source field for reaction diffusion equation set. Note that for the split problem subtype, 
+  !the source field is not used at all.
   CALL cmfe_Field_Initialise(SourceField,Err)
   CALL cmfe_EquationsSet_SourceCreateStart(EquationsSet,SourceFieldUserNumber,SourceField,Err)
   CALL cmfe_Field_VariableLabelSet(SourceField,CMFE_FIELD_U_VARIABLE_TYPE,"Source",Err)
