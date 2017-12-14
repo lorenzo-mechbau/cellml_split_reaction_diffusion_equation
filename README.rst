@@ -19,12 +19,23 @@ where |u| is a scalar dependent variable (e.g. temperature, concentration of a c
 .. |3d_reaction_diffusion_equation| image:: ./docs/images/3d_reaction_diffusion_equation.svg
    :align: middle
 
+.. |u| image:: ./docs/images/u.svg
+   :align: middle
 
+.. |conductivity_tensor| image:: ./docs/images/conductivity_tensor.svg
+   :align: middle
 
+.. |R| image:: ./docs/images/r.svg
+   :align: middle
 
-
-
-
+.. |x| image:: ./docs/images/x.svg
+   :align: middle
+   
+.. |t| image:: ./docs/images/t.svg
+   :align: middle   
+   
+   
+   
 
 Building the example
 ====================
