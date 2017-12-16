@@ -73,7 +73,7 @@ The expected results from this example are available in `expected_results <./src
 Prerequisites
 =============
 
-There are no additional input files required for this example as it is self-contained.
+As stated, the ODE that determines the source/reaction term is solved using CellML and ODE model is input via <./src/fortran/zero_rate.xml. 
 
 License
 =======
