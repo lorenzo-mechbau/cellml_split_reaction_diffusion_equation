@@ -2,13 +2,13 @@
 CellML Split Reaction Diffusion Equation
 ========================================
 
-This example solves the weak form of the one-dimensional reaction diffusion equation using the Galerkin finite element method. The three-dimensional classical form of the governing equation is given by,  
+This example solves the weak form of the one-dimensional reaction diffusion equation using the Galerkin finite element method. The classical form of the governing equation in three-dimension is given by,  
 
 |3d_reaction_diffusion_equation|
 
 where |u| is a scalar dependent variable (e.g. temperature, concentration of a chemical species), |conductivity_tensor| is a rank-two diffusion tensor, |R| is the reaction term (function of the dependent variable |u|) and |x| and |t| are spatial coordinates and time respectively.
 
-
+The reaction term is obtained by solving an odinary differential equation (ODE) which describes the rate of generation or depletion of at 
 
 
 
