@@ -6,7 +6,7 @@ This example solves the weak form of the one-dimensional reaction diffusion equa
 
 |3d_reaction_diffusion_equation|
 
-where |u| is a scalar dependent variable (e.g. temperature, concentration of a chemical species), |conductivity_tensor| is a rank-two conductivity tensor, |R| is the reaction term (a function of dependent variable |u|) and |x| and |t| are spatial coordinates and time respectively.
+where |u| is a scalar dependent variable (e.g. temperature, concentration of a chemical species), |conductivity_tensor| is a rank-two diffusion tensor, |R| is the reaction term (function of the dependent variable |u|) and |x| and |t| are spatial coordinates and time respectively.
 
 
 
