@@ -12,7 +12,7 @@ The reaction term is obtained by solving the following ordinary differential equ
 
 |rate_equation|
 
-where Here two different time steps are used for the time integration of PDE and ODE and this approach is known as the 'splitting' method. 
+where |a| is a constant. Here two different time steps are used for the time integration of PDE and ODE and this approach is known as the 'splitting' method. 
 
 
 .. |3d_reaction_diffusion_equation| image:: ./docs/images/3d_reaction_diffusion_equation.svg
@@ -35,6 +35,9 @@ where Here two different time steps are used for the time integration of PDE and
    
 .. |rate_equation| image:: ./docs/images/rate_equation.svg
    :align: middle   
+   
+.. |a| image:: ./docs/images/a.svg
+   :align: bottom
    
 
 Building the example
