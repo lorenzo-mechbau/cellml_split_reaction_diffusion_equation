@@ -272,7 +272,7 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   CALL cmfe_CellML_Initialise(CellML,Err)
   CALL cmfe_CellML_CreateStart(CellMLUserNumber,Region,CellML,Err)
   !Import a constant source (i.e. rate of generation/depletion is zero) model from a file
-  CALL cmfe_CellML_ModelImport(CellML,"zero-rate.xml",constantModelIndex,Err)
+  CALL cmfe_CellML_ModelImport(CellML,"constant_rate.xml",constantModelIndex,Err)
   !Speify the variables in the imported model that will be used. 
   
   ! Now we have imported all the models we are able to specify which variables from the model we want:
