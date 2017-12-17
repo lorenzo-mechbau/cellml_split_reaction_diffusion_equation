@@ -271,14 +271,13 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   !Create the CellML environment
   CALL cmfe_CellML_Initialise(CellML,Err)
   CALL cmfe_CellML_CreateStart(CellMLUserNumber,Region,CellML,Err)
-  !Import a constant source model from a file
+  !Import a constant source (i.e. rate of generation/depletion is zero) model from a file
   CALL cmfe_CellML_ModelImport(CellML,"zero-rate.xml",constantModelIndex,Err)
   !Speify the variables in the imported model that will be used. 
   
-
   ! Now we have imported all the models we are able to specify which variables from the model we want:
   ! - to set from this side
-  !These are effectively parameters that you know won't change in the course of the ode solving for one time step. 
+  !These are effectively parameters that won't change in the course of the ode solving for one time step. 
   !i.e. fixed before running cellml, known in opencmiss and changed only in opencmiss - components of the parameters field
   CALL cmfe_CellML_VariableSetAsKnown(CellML,constantModelIndex,"dude/param",Err)
   ! - to get from the CellML side. variables in cellml model that are not state variables, but are dependent on 
