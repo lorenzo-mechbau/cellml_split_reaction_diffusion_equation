@@ -66,10 +66,19 @@ Verifying the example
 
 Results can be visualised by running `visualise.cmgui <./src/fortran/visualise.cmgui>`_ with the `Cmgui visualiser <http://physiomeproject.org/software/opencmiss/cmgui/download>`_.
 
-The following figure shows the solutions and various field variables ........... 
+The following figure shows the one-dimensional computational domain and solution of the primary variable, |u|.
 
+.. |figure1a| image:: ./docs/images/mesh.svg
+   :width: 275
+   :scale: 125
 
+.. |figure1b| image:: ./docs/images/solution_u.svg
+   :width: 275
+   :scale: 125
+   
+|figure1a|  |figure1b|   
 
+Figure 1. (a) One-dimensional finite element mesh (b) Primary variable solution
 
 The expected results from this example are available in `expected_results <./src/fortran/expected_results>`_ folder.  
 
