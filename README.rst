@@ -2,7 +2,7 @@
 CellML Split Reaction Diffusion Equation
 ========================================
 
-This example solves the weak form of the one-dimensional reaction diffusion equation using the Galerkin finite element method. The classical form of the governing equation in three-dimension is given by,  
+This example solves the weak form of the one-dimensional reaction-diffusion equation using the Galerkin finite element method. The classical form of the governing partial differential eqiation (PDE) in three-dimension is given by,  
 
 |3d_reaction_diffusion_equation|
 
@@ -12,8 +12,7 @@ The reaction term is obtained by solving the following ordinary differential equ
 
 |rate_eqaution|
 
-
-
+where Here two different time steps are used for the time integration of PDE and ODE and this approach is known as the 'splitting' method. 
 
 
 .. |3d_reaction_diffusion_equation| image:: ./docs/images/3d_reaction_diffusion_equation.svg
