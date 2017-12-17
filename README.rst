@@ -6,11 +6,11 @@ This example solves the weak form of the one-dimensional reaction diffusion equa
 
 |3d_reaction_diffusion_equation|
 
-where |u| is a scalar dependent variable (e.g. temperature, concentration of a chemical species), |conductivity_tensor| is a rank-two diffusion tensor, |R| is the reaction term (function of the dependent variable |u|) and |x| and |t| are spatial coordinates and time respectively.
+where |u| is a scalar dependent variable (e.g. concentration of a chemical species), |conductivity_tensor| is a rank-two diffusion tensor, |R| is the reaction term (function of the dependent variable |u|) and |x| and |t| are spatial coordinates and time respectively.
 
-The reaction term is obtained by solving an odinary differential equation (ODE) which describes the rate of generation or depletion of at 
+The reaction term is obtained by solving the following ordinary differential equation (ODE) which describes the rate of generation or depletion of the chemical species. 
 
-
+|rate_eqaution|
 
 
 
@@ -34,7 +34,8 @@ The reaction term is obtained by solving an odinary differential equation (ODE) 
 .. |t| image:: ./docs/images/t.svg
    :align: bottom   
    
-   
+.. |rate_eqaution| image:: ./docs/images/rate_eqaution.svg
+   :align: middle   
    
 
 Building the example
