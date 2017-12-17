@@ -69,11 +69,11 @@ Results can be visualised by running `visualise.cmgui <./src/fortran/visualise.c
 The following figure shows the one-dimensional computational domain and solution of the primary variable, |u|.
 
 .. |figure1a| image:: ./docs/images/mesh.svg
-   :width: 275
+   :width: 400
    :scale: 125
 
 .. |figure1b| image:: ./docs/images/solution_u.svg
-   :width: 275
+   :width: 400
    :scale: 125
    
 |figure1a|  |figure1b|   
