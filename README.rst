@@ -10,7 +10,7 @@ where |u| is a scalar dependent variable (e.g. concentration of a chemical speci
 
 The reaction term is obtained by solving the following ordinary differential equation (ODE).
 
-|rate_eqaution|
+|rate_equation|
 
 where Here two different time steps are used for the time integration of PDE and ODE and this approach is known as the 'splitting' method. 
 
@@ -33,7 +33,7 @@ where Here two different time steps are used for the time integration of PDE and
 .. |t| image:: ./docs/images/t.svg
    :align: bottom   
    
-.. |rate_eqaution| image:: ./docs/images/rate_eqaution.svg
+.. |rate_equation| image:: ./docs/images/rate_equation.svg
    :align: middle   
    
 
