@@ -58,7 +58,7 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   !CMISS variables
 
   TYPE(cmfe_BasisType) :: Basis
-  TYPE(cmfe_ComputationEnvironmentType) :: computationEnvironment
+  !TYPE(cmfe_ComputationEnvironmentType) :: computationEnvironment
   TYPE(cmfe_CoordinateSystemType) :: CoordinateSystem,WorldCoordinateSystem
   TYPE(cmfe_DecompositionType) :: Decomposition
   TYPE(cmfe_EquationsType) :: Equations
@@ -91,7 +91,10 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   INTEGER(CMISSIntg) :: EquationsSetIndex,CellMLIndex
   INTEGER(CMISSIntg) :: Err
 
-  
+  ! Reading path
+  INTEGER(CMISSIntg) :: numberOfArguments, argumentLength, status
+  CHARACTER(LEN=255) :: commandArgument,filename
+
 #ifdef WIN32
   !Initialise QuickWin
   QUICKWIN_WINDOW_CONFIG%TITLE="General Output" !Window title
@@ -103,6 +106,18 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   IF(.NOT.QUICKWIN_STATUS) QUICKWIN_STATUS=SETWINDOWCONFIG(QUICKWIN_WINDOW_CONFIG)
 #endif
 
+  ! Get the path to the input file
+  numberOfArguments = COMMAND_ARGUMENT_COUNT()
+  IF(numberOfArguments >= 1) THEN
+    !If we have enough arguments then use the first to get the path to cellml file
+    CALL GET_COMMAND_ARGUMENT(1,commandArgument,argumentLength,status)
+    IF(status>0) CALL HandleError("Error for command argument 1.")
+    filename = trim(commandArgument)//"constant_rate.xml"
+  END IF
+
+
+
+
   !-----------------------------------------------------------------------------------------------------------
   ! PROBLEM CONTROL PANEL
   !-----------------------------------------------------------------------------------------------------------
@@ -111,9 +126,11 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   CALL cmfe_Initialise(WorldCoordinateSystem,WorldRegion,Err)
   CALL cmfe_ErrorHandlingModeSet(CMFE_ERRORS_TRAP_ERROR,Err)
   !Get the computational nodes information
-  CALL cmfe_ComputationEnvironment_Initialise(computationEnvironment,err)
-  CALL cmfe_ComputationEnvironment_NumberOfWorldNodesGet(computationEnvironment,numberOfComputationalNodes,err)
-  CALL cmfe_ComputationEnvironment_WorldNodeNumberGet(computationEnvironment,computationalNodeNumber,err)
+  !CALL cmfe_ComputationEnvironment_Initialise(computationEnvironment,err)
+  !CALL cmfe_ComputationEnvironment_NumberOfWorldNodesGet(computationEnvironment,numberOfComputationalNodes,err)
+  !CALL cmfe_ComputationEnvironment_WorldNodeNumberGet(computationEnvironment,computationalNodeNumber,err)
+  CALL cmfe_ComputationalNumberOfNodesGet(NumberOfComputationalNodes,Err)
+  CALL cmfe_ComputationalNodeNumberGet(ComputationalNodeNumber,Err)
 
   NUMBER_GLOBAL_X_ELEMENTS=10
   NUMBER_OF_DOMAINS=NumberOfComputationalNodes
@@ -274,7 +291,7 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   CALL cmfe_CellML_Initialise(CellML,Err)
   CALL cmfe_CellML_CreateStart(CellMLUserNumber,Region,CellML,Err)
   !Import a constant source (i.e. rate of generation/depletion is zero) model from a file
-  CALL cmfe_CellML_ModelImport(CellML,"constant_rate.xml",constantModelIndex,Err)
+  CALL cmfe_CellML_ModelImport(CellML,filename,constantModelIndex,Err)
   !Speify the variables in the imported model that will be used. 
   
   ! Now we have imported all the models we are able to specify which variables from the model we want:
@@ -541,5 +558,13 @@ PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
   WRITE(*,'(A)') "Program successfully completed."
 
   STOP
+
+CONTAINS
+
+  SUBROUTINE HandleError(errorString)
+    CHARACTER(LEN=*), INTENT(IN) :: errorString
+    WRITE(*,'(">>ERROR: ",A)') errorString(1:LEN_TRIM(errorString))
+    STOP
+  END SUBROUTINE HandleError
   
 END PROGRAM CELLML_SPLIT_REACTION_DIFFUSION_EQUATION
